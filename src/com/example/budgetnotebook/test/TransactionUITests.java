@@ -1,6 +1,6 @@
 package com.example.budgetnotebook.test;
 
-import com.example.budgetnotebook.Transaction;
+import com.example.budgetnotebook.TransactionView;
 
 import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
@@ -20,14 +20,14 @@ public class TransactionUITests extends TestCase {
 	public class TransactionValidation extends ActivityInstrumentationTestCase2 {
 		EditText item, amount, notes;
 		RadioGroup types;
-		Transaction activity;
+		TransactionView activity;
 		Button save;
 		TextView listItem, listAmount;
 		TabHost tabHost;
 
 
 		public TransactionValidation(String name) {
-			super("com.example",Transaction.class);
+			super("com.example",TransactionView.class);
 			setName(name);
 		}
 
@@ -35,7 +35,7 @@ public class TransactionUITests extends TestCase {
 			super.setUp();
 
 			// Find views
-			activity = (Transaction)this.getActivity();
+			activity = (TransactionView)this.getActivity();
 			assertNotNull(activity);
 			item = (EditText) activity.findViewById(com.example.budgetnotebook.R.id.item);
 			amount = (EditText) activity.findViewById(com.example.budgetnotebook.R.id.amount);
