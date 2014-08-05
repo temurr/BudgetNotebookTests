@@ -17,11 +17,11 @@ public class AccountTests extends AndroidTestCase {
 	
 	private Account getTestAccount(int id){
 		Account account = new Account();
-		account.setBalance("100");
 		account.setId(id);
 		account.setName("TestName");
 		account.setNumber("123");
 		account.setType("TestType");
+		account.setBalance("100");
 
 		return account;		
 	}

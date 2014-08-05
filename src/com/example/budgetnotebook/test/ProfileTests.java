@@ -82,7 +82,7 @@ public class ProfileTests extends AndroidTestCase {
 		dbConn.addProfile(profile);
 		
 		// Delete the profile
-		dbConn.deleteProfile(profile);
+		//dbConn.deleteProfile(profile); < -- Removed this test because this functionality is not needed.
 		
 		// Make sure the profile no longer exists		
 		Exception e = null;
