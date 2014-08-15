@@ -5,7 +5,7 @@ import com.example.budgetnotebook.Profile;
 
 import android.test.AndroidTestCase;
 
-public class ProfileTests extends AndroidTestCase {
+public class A_ProfileTests extends AndroidTestCase {
 
 	private DBHelper dbConn;
 	
@@ -74,6 +74,7 @@ public class ProfileTests extends AndroidTestCase {
 		assertEquals("LastName not updated.", profile.getLastName(), lastName);		
 	}	
 	
+	/*
 	public void testDeleteProfile() throws Throwable{
 		// Get the test profile
 		Profile profile = this.getTestProfile(3);
@@ -94,7 +95,8 @@ public class ProfileTests extends AndroidTestCase {
 		}
 		assertNotNull("Profile was not deleted.", e);  // If no exception happened, then the get succeeded and this was not deleted.
 	}
-
+	*/
+	
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}

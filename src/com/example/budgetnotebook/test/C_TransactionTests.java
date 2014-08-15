@@ -5,7 +5,7 @@ import com.example.budgetnotebook.Transaction;
 
 import android.test.AndroidTestCase;
 
-public class TransactionTests extends AndroidTestCase {
+public class C_TransactionTests extends AndroidTestCase {
 
 	private DBHelper dbConn;
 	

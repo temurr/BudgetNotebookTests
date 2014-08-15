@@ -16,7 +16,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import junit.framework.TestCase;
 
-public class TransactionUITests extends TestCase {
+public class H_TransactionUITests extends TestCase {
 	public class TransactionValidation extends ActivityInstrumentationTestCase2 {
 		EditText name, amount, notes;
 		RadioGroup types;

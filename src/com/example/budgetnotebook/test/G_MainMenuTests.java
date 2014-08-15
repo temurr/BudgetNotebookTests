@@ -19,8 +19,8 @@ import com.example.budgetnotebook.MainMenu;
 import com.example.budgetnotebook.Transaction;
  
 
-	public class MainMenuTests extends ActivityInstrumentationTestCase2 {
-		public MainMenuTests(Class activityClass) {
+	public class G_MainMenuTests extends ActivityInstrumentationTestCase2 {
+		public G_MainMenuTests(Class activityClass) {
 			super(activityClass);
 			// TODO Auto-generated constructor stub
 		}
@@ -33,7 +33,7 @@ import com.example.budgetnotebook.Transaction;
 		Button EXIT;
 		MainMenu activity;
 
-		public MainMenuTests(String name) {
+		public G_MainMenuTests(String name) {
 			super("com.example", MainMenu.class);
 			setName(name);
 		}

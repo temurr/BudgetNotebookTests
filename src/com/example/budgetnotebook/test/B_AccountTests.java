@@ -5,7 +5,7 @@ import com.example.budgetnotebook.Account;
 
 import android.test.AndroidTestCase;
 
-public class AccountTests extends AndroidTestCase {
+public class B_AccountTests extends AndroidTestCase {
 
 	private DBHelper dbConn;
 	
@@ -26,8 +26,21 @@ public class AccountTests extends AndroidTestCase {
 		return account;		
 	}
 	
-	public void testCreateAccount() throws Throwable{
+	public void testAccountExists() throws Throwable {
 		Account account = this.getTestAccount(1);
+		boolean check;
+		check = dbConn.checkAccountExists();
+		
+		assertFalse("Accounts already exist!", check);
+		
+		dbConn.addAccount(account);
+		check = dbConn.checkAccountExists();
+		assertTrue("Account does not exist!", check);		
+		
+	}
+	
+	public void testCreateAccount() throws Throwable{
+		Account account = this.getTestAccount(2);
 		dbConn.addAccount(account);
 		
 		account = dbConn.getAccount(account.getId());
@@ -37,11 +50,11 @@ public class AccountTests extends AndroidTestCase {
 	
 	public void testUpdateAccount() throws Throwable{
 		// Insert an account
-		Account account = this.getTestAccount(2);
+		Account account = this.getTestAccount(3);
 		dbConn.addAccount(account);
 		
 		// Get the account
-		account = dbConn.getAccount(2);
+		account = dbConn.getAccount(3);
 		
 		// Update the account		
 		String balance = "200";
@@ -57,7 +70,7 @@ public class AccountTests extends AndroidTestCase {
 		dbConn.updateAccount(account);
 		
 		// Get the updated account
-		account = dbConn.getAccount(2);
+		account = dbConn.getAccount(3);
 		
 		// Validate the updated values
 		assertEquals("Balance not updated.", account.getBalance(), balance);
@@ -68,7 +81,7 @@ public class AccountTests extends AndroidTestCase {
 	
 	public void testDeleteAccount() throws Throwable{
 		// Get the test account
-		Account account = this.getTestAccount(3);
+		Account account = this.getTestAccount(4);
 		
 		// Insert the test account
 		dbConn.addAccount(account);
@@ -79,7 +92,7 @@ public class AccountTests extends AndroidTestCase {
 		// Make sure the account no longer exists		
 		Exception e = null;
 		try{
-			account = dbConn.getAccount(3);
+			account = dbConn.getAccount(4);
 		}
 		catch(Exception exception){
 			e = exception;

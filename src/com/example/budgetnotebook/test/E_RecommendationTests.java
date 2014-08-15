@@ -5,7 +5,7 @@ import com.example.budgetnotebook.Recommendation;
 
 import android.test.AndroidTestCase;
 
-public class RecommendationTests extends AndroidTestCase {
+public class E_RecommendationTests extends AndroidTestCase {
 
 	private DBHelper dbConn;
 	

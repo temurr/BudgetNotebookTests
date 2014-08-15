@@ -5,7 +5,7 @@ import com.example.budgetnotebook.Alert;
 
 import android.test.AndroidTestCase;
 
-public class AlertTests extends AndroidTestCase {
+public class F_AlertTests extends AndroidTestCase {
 
 	private DBHelper dbConn;
 	

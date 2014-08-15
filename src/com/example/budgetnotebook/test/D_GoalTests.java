@@ -5,7 +5,7 @@ import com.example.budgetnotebook.Goal;
 
 import android.test.AndroidTestCase;
 
-public class GoalTests extends AndroidTestCase {
+public class D_GoalTests extends AndroidTestCase {
 
 	private DBHelper dbConn;
 	
