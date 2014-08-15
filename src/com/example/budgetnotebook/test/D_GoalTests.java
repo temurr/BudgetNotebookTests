@@ -1,8 +1,9 @@
 package com.example.budgetnotebook.test;
 
+import com.example.budgetnotebook.Account;
 import com.example.budgetnotebook.DBHelper;
 import com.example.budgetnotebook.Goal;
-
+import com.example.budgetnotebook.R;
 import android.test.AndroidTestCase;
 
 public class D_GoalTests extends AndroidTestCase {
@@ -29,7 +30,7 @@ public class D_GoalTests extends AndroidTestCase {
 		return goal;
 	}
 	
-	public void testCreateGoal() throws Throwable{
+	public void testA_CreateGoal() throws Throwable{
 		Goal goal = this.getTestGoal(1);
 		dbConn.addGoal(goal);
 		
@@ -38,7 +39,7 @@ public class D_GoalTests extends AndroidTestCase {
 		assertNotNull("Failed to retrieve goal after inserting it.", dbGoal);		
 	}
 	
-	public void testUpdateGoal() throws Throwable{
+	public void testB_UpdateGoal() throws Throwable{
 		// Insert a goal
 		Goal goal = this.getTestGoal(2);
 		dbConn.addGoal(goal);;
@@ -75,7 +76,7 @@ public class D_GoalTests extends AndroidTestCase {
 		assertEquals("Type not updated.", goal.getType(), type);		
 	}	
 	
-	public void testDeleteGoal() throws Throwable{
+	public void testC_DeleteGoal() throws Throwable{
 		// Get the test goal
 		Goal goal = this.getTestGoal(3);
 		
@@ -96,6 +97,41 @@ public class D_GoalTests extends AndroidTestCase {
 		assertNotNull("Goal was not deleted.", e);  // If no exception happened, then the get succeeded and this was not deleted.
 	}
 
+	public void testD_checkGoalStatus () throws Throwable {
+		Goal goal = this.getTestGoal(4);
+		Account account = dbConn.getAccount(1);
+		goal.setEndDate("01/01/2010");
+		goal.setAId(1);
+		
+		float amount = dbConn.querySum("SELECT * FROM " + DBHelper.TRANSACTION_TABLE + " WHERE " + DBHelper.TRANSACTION_ACCOUNTED + " = " + 1);
+		goal.setStartAmount(String.valueOf(amount));
+		account.setBalance(String.valueOf(amount));
+		dbConn.updateAccount(account);
+		
+		goal.setType("Save DELTA amount");
+		dbConn.addGoal(goal);
+		
+		dbConn.checkGoalStatus("01/01/2009");
+		goal = dbConn.getGoal(4);
+		assertEquals("Failed to update Goal!", goal.getStatus(), String.valueOf(R.drawable.goal_prog));
+		
+		dbConn.checkGoalStatus("12/31/2009");	
+		goal = dbConn.getGoal(4);
+		assertEquals("Failed to update Goal!", goal.getStatus(), String.valueOf(R.drawable.goal_jep));
+		
+		dbConn.checkGoalStatus("01/02/2010");	
+		goal = dbConn.getGoal(4);
+		assertEquals("Failed to update Goal!", goal.getStatus(), String.valueOf(R.drawable.goal_fail));
+		
+		goal = dbConn.getGoal(4);
+		goal.setStartAmount(String.valueOf(amount - 100));
+		dbConn.updateGoal(goal);
+		dbConn.checkGoalStatus("01/02/2010");
+		goal = dbConn.getGoal(4);
+		assertEquals("Failed to update Goal!", goal.getStatus(), String.valueOf(R.drawable.goal_success));
+		
+	}
+	
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}

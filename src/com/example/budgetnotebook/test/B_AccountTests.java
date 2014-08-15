@@ -26,7 +26,7 @@ public class B_AccountTests extends AndroidTestCase {
 		return account;		
 	}
 	
-	public void testAccountExists() throws Throwable {
+	public void testA_AccountExists() throws Throwable {
 		Account account = this.getTestAccount(1);
 		boolean check;
 		check = dbConn.checkAccountExists();
@@ -39,7 +39,7 @@ public class B_AccountTests extends AndroidTestCase {
 		
 	}
 	
-	public void testCreateAccount() throws Throwable{
+	public void testB_CreateAccount() throws Throwable{
 		Account account = this.getTestAccount(2);
 		dbConn.addAccount(account);
 		
@@ -48,7 +48,7 @@ public class B_AccountTests extends AndroidTestCase {
 		assertNotNull("Failed to retrieve account after inserting it.", account);		
 	}
 	
-	public void testUpdateAccount() throws Throwable{
+	public void testC_UpdateAccount() throws Throwable{
 		// Insert an account
 		Account account = this.getTestAccount(3);
 		dbConn.addAccount(account);
@@ -79,7 +79,7 @@ public class B_AccountTests extends AndroidTestCase {
 		assertEquals("Type not updated.", account.getType(), type);
 	}	
 	
-	public void testDeleteAccount() throws Throwable{
+	public void testD_DeleteAccount() throws Throwable{
 		// Get the test account
 		Account account = this.getTestAccount(4);
 		

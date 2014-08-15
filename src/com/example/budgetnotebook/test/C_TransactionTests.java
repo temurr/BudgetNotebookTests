@@ -17,7 +17,7 @@ public class C_TransactionTests extends AndroidTestCase {
 	
 	private Transaction getTestTransaction(int id){
 		Transaction transaction = new Transaction();
-		transaction.setAId(id);;
+		transaction.setAId(1);;
 		transaction.setAmount("100");
 		transaction.setCategory("Test Category");
 		transaction.setDate("01/02/2003");
@@ -26,10 +26,11 @@ public class C_TransactionTests extends AndroidTestCase {
 		transaction.setInterval("1000");
 		transaction.setName("Test Name");
 		transaction.setType("Test type");
+		transaction.setAccounted(true);
 		return transaction;
 	}
 	
-	public void testCreateTransaction() throws Throwable{
+	public void testA_CreateTransaction() throws Throwable{
 		Transaction transaction = this.getTestTransaction(1);
 		dbConn.addTransaction(transaction);
 		
@@ -38,7 +39,7 @@ public class C_TransactionTests extends AndroidTestCase {
 		assertNotNull("Failed to retrieve transaction after inserting it.", transaction);		
 	}
 	
-	public void testUpdateTransaction() throws Throwable{
+	public void testB_UpdateTransaction() throws Throwable{
 		// Insert a transaction
 		Transaction transaction = this.getTestTransaction(2);
 		dbConn.addTransaction(transaction);
@@ -78,7 +79,7 @@ public class C_TransactionTests extends AndroidTestCase {
 		assertEquals("Type not updated.", transaction.getType(), type);
 	}	
 	
-	public void testDeleteTransaction() throws Throwable{
+	public void testC_DeleteTransaction() throws Throwable{
 		// Get the test transaction
 		Transaction transaction = this.getTestTransaction(3);
 		
@@ -99,6 +100,28 @@ public class C_TransactionTests extends AndroidTestCase {
 		assertNotNull("Transaction was not deleted.", e);  // If no exception happened, then the get succeeded and this was not deleted.
 	}
 
+	public void testD_CleanTransactions() throws Throwable{
+		Transaction transaction = this.getTestTransaction(4);
+		dbConn.addTransaction(transaction);
+		transaction = dbConn.getTransaction(4);
+		
+		float origSum, newSum;
+		
+		String query = "SELECT * FROM " + DBHelper.TRANSACTION_TABLE + " WHERE " + DBHelper.TRANSACTION_ACCOUNTED + " = " + 1;
+		dbConn.cleanTransactions(getContext(), "now");
+		
+		origSum = dbConn.querySum(query);
+		
+		transaction.setDate("01/01/2020");
+		dbConn.updateTransaction(transaction);
+		
+		dbConn.cleanTransactions(getContext(), "now");
+		
+		newSum = dbConn.querySum(query);
+		
+		assertEquals("Failed to update transactions!", origSum - 100, newSum);
+	}
+	
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}

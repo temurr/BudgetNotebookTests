@@ -28,7 +28,7 @@ public class A_ProfileTests extends AndroidTestCase {
 		return profile;		
 	}
 	
-	public void testCreateProfile() throws Throwable{
+	public void testA_CreateProfile() throws Throwable{
 		Profile profile = this.getTestProfile(1);
 		dbConn.addProfile(profile);
 		
@@ -37,7 +37,7 @@ public class A_ProfileTests extends AndroidTestCase {
 		assertNotNull("Failed to retrieve profile after inserting it.", profile);		
 	}
 	
-	public void testUpdateProfile() throws Throwable{
+	public void testB_UpdateProfile() throws Throwable{
 		// Insert a profile
 		Profile profile = this.getTestProfile(2);
 		dbConn.addProfile(profile);;
